@@ -1,0 +1,43 @@
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables / API keys
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model files
+models/
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Generated vector stores
+kb_store/
+vector_store/
+chroma_db/
+
+# Processed/generated data
+data/processed/
+
+# Raw datasets
+data/raw/
+
+# Logs
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
