@@ -1,0 +1,158 @@
+[
+  {
+    "id": "ORDER_001",
+    "category": "ORDER",
+    "title": "How do I track my order?",
+    "content": "You can track your order from the 'My Orders' section of your account. Once shipped, you'll receive a tracking link via email/SMS. Tracking updates may take up to 24 hours to appear after dispatch."
+  },
+  {
+    "id": "ORDER_002",
+    "category": "ORDER",
+    "title": "Can I change items in my order after placing it?",
+    "content": "Items in an order cannot be changed once placed. You may cancel the order within 1 hour of placing it (if it hasn't shipped) and place a new one with the correct items."
+  },
+  {
+    "id": "ORDER_003",
+    "category": "ORDER",
+    "title": "What do I do if I received the wrong item?",
+    "content": "If you received an incorrect item, report it within 48 hours of delivery via the 'Report an Issue' option on your order. We will arrange a free return pickup and send the correct item or issue a full refund."
+  },
+  {
+    "id": "CANCELLATION_001",
+    "category": "CANCELLATION",
+    "title": "Can I cancel an order after placing it?",
+    "content": "You can cancel an order for free within 1 hour of placing it, as long as it hasn't shipped. After that, cancellation may incur a 10% restocking fee, and orders already shipped cannot be cancelled but can be returned after delivery."
+  },
+  {
+    "id": "CANCELLATION_002",
+    "category": "CANCELLATION",
+    "title": "How do I cancel my subscription?",
+    "content": "Go to Account Settings > Subscriptions > Cancel Subscription. Cancellation takes effect at the end of your current billing cycle; you will retain access until then. No partial refunds are issued for the remaining days."
+  },
+  {
+    "id": "REFUND_001",
+    "category": "REFUND",
+    "title": "How long do refunds take?",
+    "content": "Refunds are processed within 5-7 business days after approval. The amount is credited to your original payment method. If you don't see it after 7 business days, contact support with your order ID for escalation."
+  },
+  {
+    "id": "REFUND_002",
+    "category": "REFUND",
+    "title": "I was charged twice for the same order. What should I do?",
+    "content": "Duplicate charges are usually reversed automatically within 3-5 business days by your bank. If it hasn't reversed after 5 days, share both transaction IDs with support and we will manually verify and refund the duplicate charge within 48 hours."
+  },
+  {
+    "id": "REFUND_003",
+    "category": "REFUND",
+    "title": "Can I get a refund without returning the item?",
+    "content": "Refunds without return are only issued for items confirmed damaged, defective, or significantly not as described, verified via photos submitted in the return request. Standard change-of-mind returns require the item to be shipped back first."
+  },
+  {
+    "id": "PAYMENT_001",
+    "category": "PAYMENT",
+    "title": "What payment methods are accepted?",
+    "content": "We accept credit/debit cards, UPI, net banking, and major digital wallets. Cash on delivery is available for orders under a set limit in eligible locations, shown at checkout."
+  },
+  {
+    "id": "PAYMENT_002",
+    "category": "PAYMENT",
+    "title": "My payment failed but the amount was deducted. What now?",
+    "content": "This usually means the payment is stuck in processing at your bank's end. Such amounts are auto-reversed within 5-7 business days. If the order does not appear in 'My Orders' and the amount isn't reversed after 7 days, contact support with the transaction reference number."
+  },
+  {
+    "id": "PAYMENT_003",
+    "category": "PAYMENT",
+    "title": "Is it safe to save my card details?",
+    "content": "Saved card details are tokenized and stored using PCI-DSS compliant encryption; we do not store your full card number on our servers. You can remove saved cards anytime from Account Settings > Payment Methods."
+  },
+  {
+    "id": "DELIVERY_001",
+    "category": "DELIVERY",
+    "title": "Why is my delivery delayed?",
+    "content": "Delays can occur due to high order volume, weather, or courier disruptions in your area. Check the tracking page for the latest courier update. If there's no movement for over 3 days, contact support and we will investigate with the courier partner."
+  },
+  {
+    "id": "DELIVERY_002",
+    "category": "DELIVERY",
+    "title": "Can I change my delivery address after placing an order?",
+    "content": "Address changes are only possible before the order is shipped. Go to 'My Orders' > select the order > 'Edit Address'. Once shipped, the address cannot be changed, but you may be able to redirect via the courier's tracking page if supported."
+  },
+  {
+    "id": "DELIVERY_003",
+    "category": "DELIVERY",
+    "title": "What happens if I miss my delivery?",
+    "content": "The courier will typically attempt delivery up to 3 times over 3 days. After a missed attempt, you'll get a notification to reschedule or arrange pickup from the nearest hub. Orders unclaimed after 7 days are returned to us and refunded."
+  },
+  {
+    "id": "ACCOUNT_001",
+    "category": "ACCOUNT",
+    "title": "How do I reset my password?",
+    "content": "Click 'Forgot Password' on the login page and enter your registered email. You'll receive a reset link valid for 30 minutes. If you don't receive the email, check your spam folder or request a new link after 5 minutes."
+  },
+  {
+    "id": "ACCOUNT_002",
+    "category": "ACCOUNT",
+    "title": "How do I delete my account?",
+    "content": "Go to Account Settings > Privacy > Delete Account. This permanently removes your data within 30 days per our privacy policy, except records we're legally required to retain (e.g., past invoices). This action cannot be undone."
+  },
+  {
+    "id": "ACCOUNT_003",
+    "category": "ACCOUNT",
+    "title": "I can't log in even with the correct password.",
+    "content": "This is often caused by too many failed attempts triggering a temporary lock (15 minutes), or a browser cache issue. Try clearing cookies or using incognito mode. If the issue persists after 15 minutes, reset your password."
+  },
+  {
+    "id": "SUBSCRIPTION_001",
+    "category": "SUBSCRIPTION",
+    "title": "How do I upgrade or downgrade my subscription plan?",
+    "content": "Go to Account Settings > Subscriptions > Change Plan. Upgrades take effect immediately with a prorated charge for the remaining cycle. Downgrades take effect at the start of your next billing cycle."
+  },
+  {
+    "id": "SUBSCRIPTION_002",
+    "category": "SUBSCRIPTION",
+    "title": "Will I be notified before my subscription renews?",
+    "content": "Yes, we send a renewal reminder email 3 days before your subscription auto-renews. You can cancel or change your plan anytime before the renewal date to avoid being charged for the next cycle."
+  },
+  {
+    "id": "TECHNICAL_001",
+    "category": "TECHNICAL",
+    "title": "The app keeps crashing. What should I do?",
+    "content": "First, update the app to the latest version and restart your device. If the issue persists, uninstall and reinstall the app. If it still crashes, share your device model and OS version with support so we can investigate further."
+  },
+  {
+    "id": "TECHNICAL_002",
+    "category": "TECHNICAL",
+    "title": "I lost data after an app update.",
+    "content": "Your data is backed up to your account automatically and is not stored only on-device, so it should not be lost during updates. Log out and log back in to force a sync. If data is still missing, contact support with your account email so we can check server-side backups."
+  },
+  {
+    "id": "INVOICE_001",
+    "category": "INVOICE",
+    "title": "How do I download my invoice?",
+    "content": "Go to 'My Orders', select the relevant order, and click 'Download Invoice'. Invoices for subscriptions are available under Account Settings > Billing History, available for the past 12 months."
+  },
+  {
+    "id": "INVOICE_002",
+    "category": "INVOICE",
+    "title": "Can I get a GST/business invoice?",
+    "content": "Yes, add your GSTIN and business details in Account Settings > Billing Details before placing an order. GST invoices cannot be regenerated retroactively for orders placed without these details at checkout."
+  },
+  {
+    "id": "FEEDBACK_001",
+    "category": "FEEDBACK",
+    "title": "How do I leave feedback or a complaint about my experience?",
+    "content": "You can submit feedback via Account Settings > Help > Feedback, or reply directly to any order confirmation email. All feedback is reviewed by our quality team within 3 business days."
+  },
+  {
+    "id": "GENERAL_QUERY_001",
+    "category": "GENERAL_QUERY",
+    "title": "What are your customer support hours?",
+    "content": "Our support team is available Monday to Saturday, 9 AM to 9 PM (local time). Email support is monitored 24/7 with responses typically within 24 hours. Urgent issues (fraud, account security) are prioritized outside these hours."
+  },
+  {
+    "id": "GENERAL_QUERY_002",
+    "category": "GENERAL_QUERY",
+    "title": "Do you have a mobile app?",
+    "content": "Yes, our app is available on both Android and iOS. It offers faster checkout, order tracking notifications, and exclusive app-only offers not available on the website."
+  }
+]

@@ -1,43 +1,22 @@
-# Virtual environment
-venv/
-.venv/
-
-# Environment variables / API keys
+# Env / secrets
 .env
 
-# Python cache
+# Python
 __pycache__/
 *.pyc
+.venv/
+venv/
+
+# Data & models (large / generated)
+data/raw/audio/*
+data/processed/*
+models/*
+!models/.gitkeep
+logs/*
+!logs/.gitkeep
 
 # Jupyter
 .ipynb_checkpoints/
 
-# Model files
-models/
-*.pt
-*.pth
-*.bin
-*.safetensors
-
-# Generated vector stores
-kb_store/
-vector_store/
-chroma_db/
-
-# Processed/generated data
-data/processed/
-
-# Raw datasets
-data/raw/
-
-# Logs
-logs/
-*.log
-
-# IDE
-.vscode/
-.idea/
-
 # OS
 .DS_Store
-Thumbs.db
