@@ -20,7 +20,7 @@ class Config:
     DATA_RAW_DIR: str = "data/raw"
     DATA_PROCESSED_DIR: str = "data/processed"
     MODELS_DIR: str = "models"
-    KB_JSON_PATH: str = "data/raw/knowledge_base/knowledge_base_faq.json"
+    KB_JSON_PATH: str = "data/processed/knowledge_base.json"
     KB_STORE_DIR: str = "models/kb_store"
     CLASSIFIER_MODEL_DIR: str = "models/classifier"
     LOG_DIR: str = "logs"
@@ -32,11 +32,19 @@ class Config:
     )
 
     # --- Ticket categories (must match classifier labels) ---
-    CATEGORIES: List[str] = field(default_factory=lambda: [
-        "ORDER", "REFUND", "ACCOUNT", "PAYMENT", "DELIVERY",
-        "SUBSCRIPTION", "TECHNICAL", "FEEDBACK", "CANCELLATION",
-        "INVOICE", "GENERAL_QUERY",
-    ])
+   CATEGORIES: List[str] = field(default_factory=lambda: [
+    "ACCOUNT",
+    "ORDER",
+    "REFUND",
+    "CONTACT",
+    "INVOICE",
+    "PAYMENT",
+    "FEEDBACK",
+    "DELIVERY",
+    "SHIPPING",
+    "SUBSCRIPTION",
+    "CANCEL",
+])
 
     # --- Embedding / RAG ---
     EMBEDDING_MODEL: str = "all-MiniLM-L6-v2"
