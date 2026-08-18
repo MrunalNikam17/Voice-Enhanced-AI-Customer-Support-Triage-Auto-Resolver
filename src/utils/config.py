@@ -24,7 +24,7 @@ class Config:
     DATA_PROCESSED_DIR: str = "data/processed"
     MODELS_DIR: str = "models"
 
-    KB_JSON_PATH: str = "data/processed/knowledge_base.json"
+   KB_JSON_PATH: str = "data/raw/knowledge_base/knowledge_base_faq.json"
     KB_STORE_DIR: str = "models/kb_store"
 
     CLASSIFIER_MODEL_DIR: str = "models/classifier"
