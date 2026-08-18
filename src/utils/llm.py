@@ -53,23 +53,29 @@ def local_llm_call(prompt: str, max_new_tokens: int = 300) -> str:
     _load_model()
 
     messages = [{"role": "user", "content": prompt}]
+
     input_ids = _tokenizer.apply_chat_template(
-        messages, return_tensors="pt"
+        messages,
+        return_tensors="pt"
     ).to(_model.device)
 
-   with torch.no_grad():
+    with torch.no_grad():
 
-    output_ids = _model.generate(
-        input_ids=input_ids["input_ids"],
-        attention_mask=input_ids["attention_mask"],
-        max_new_tokens=max_new_tokens,
-        temperature=config.LLM_TEMPERATURE,
-        do_sample=config.LLM_TEMPERATURE > 0,
-        pad_token_id=_tokenizer.eos_token_id,
-    )
+        output_ids = _model.generate(
+            input_ids=input_ids,
+            max_new_tokens=max_new_tokens,
+            temperature=config.LLM_TEMPERATURE,
+            do_sample=config.LLM_TEMPERATURE > 0,
+            pad_token_id=_tokenizer.eos_token_id,
+        )
 
     generated = output_ids[0][input_ids.shape[-1]:]
-    text = _tokenizer.decode(generated, skip_special_tokens=True)
+
+    text = _tokenizer.decode(
+        generated,
+        skip_special_tokens=True
+    )
+
     return text.strip()
 
 
