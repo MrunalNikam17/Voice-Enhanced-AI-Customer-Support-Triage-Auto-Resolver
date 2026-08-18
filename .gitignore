@@ -7,11 +7,19 @@ __pycache__/
 .venv/
 venv/
 
-# Data & models (large / generated)
+# Data & models
 data/raw/audio/*
 data/processed/*
+
+# Ignore large trained models
 models/*
 !models/.gitkeep
+
+# Keep the small FAISS RAG knowledge base
+!models/kb_store/
+!models/kb_store/faq.index
+!models/kb_store/faq_metadata.pkl
+
 logs/*
 !logs/.gitkeep
 
