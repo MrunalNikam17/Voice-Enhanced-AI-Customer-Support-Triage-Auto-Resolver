@@ -1,4 +1,4 @@
-%%writefile src/responder/responder.py
+
 """
 src/responder/responder.py
 
