@@ -1,3 +1,4 @@
+%%writefile src/responder/responder.py
 """
 src/responder/responder.py
 
@@ -54,17 +55,10 @@ def format_context(chunks: list) -> str:
 
 class ResponderAgent:
     def __init__(self, llm_call_fn=None):
-        """
-        llm_call_fn: a function(prompt: str) -> str that calls an LLM and
-        returns raw text. Defaults to the local Mistral-7B wrapper in
-        src/utils/llm.py. Pass a different function here if you swap models
-        later (e.g. an API-based call) without changing this class.
-        """
         self.index, self.embedder, self.faq_entries = load_vector_store()
         self.llm_call_fn = llm_call_fn or local_llm_call
 
     def respond(self, query: str, category: str = None) -> dict:
-        # Retrieve relevant KB chunks
         chunks = retrieve(query, self.index, self.embedder, self.faq_entries)
 
         if not chunks:
@@ -87,9 +81,6 @@ class ResponderAgent:
         try:
             parsed = json.loads(extract_json(raw_output))
         except (json.JSONDecodeError, TypeError):
-            # LLM didn't return clean/parseable JSON — treat as low
-            # confidence so the Escalation Agent hands this off to a human
-            # instead of silently failing.
             parsed = {
                 "answer": None,
                 "confidence": 0.0,

@@ -1,7 +1,3 @@
-"""
-Central configuration for the Voice Customer Support AI project.
-"""
-
 import os
 from dataclasses import dataclass, field
 from typing import List
@@ -24,11 +20,10 @@ class Config:
     DATA_PROCESSED_DIR: str = "data/processed"
     MODELS_DIR: str = "models"
 
-   KB_JSON_PATH: str = "data/raw/knowledge_base/knowledge_base_faq.json"
+    KB_JSON_PATH: str = "data/raw/knowledge_base/knowledge_base_faq.json"
     KB_STORE_DIR: str = "models/kb_store"
 
     CLASSIFIER_MODEL_DIR: str = "models/classifier"
-
     LOG_DIR: str = "logs"
 
     # -----------------------------
@@ -41,22 +36,22 @@ class Config:
     )
 
     # -----------------------------
-    # Bitext categories
+    # Final 11 classifier categories
     # -----------------------------
 
     CATEGORIES: List[str] = field(
         default_factory=lambda: [
             "ACCOUNT",
-            "ORDER",
-            "REFUND",
+            "CANCEL",
             "CONTACT",
-            "INVOICE",
-            "PAYMENT",
-            "FEEDBACK",
             "DELIVERY",
+            "FEEDBACK",
+            "INVOICE",
+            "ORDER",
+            "PAYMENT",
+            "REFUND",
             "SHIPPING",
             "SUBSCRIPTION",
-            "CANCEL",
         ]
     )
 
@@ -79,7 +74,7 @@ class Config:
 
     LLM_MODEL_NAME: str = os.getenv(
         "LLM_MODEL_NAME",
-        "mistral-7b-instruct"
+        "mistralai/Mistral-7B-Instruct-v0.2"
     )
 
     LLM_API_KEY: str = os.getenv(
@@ -94,13 +89,9 @@ class Config:
     # -----------------------------
 
     CLASSIFIER_BASE_MODEL: str = "distilbert-base-uncased"
-
     CLASSIFIER_MAX_LEN: int = 128
-
     CLASSIFIER_EPOCHS: int = 3
-
     CLASSIFIER_BATCH_SIZE: int = 16
-
     CLASSIFIER_LR: float = 2e-5
 
     # -----------------------------

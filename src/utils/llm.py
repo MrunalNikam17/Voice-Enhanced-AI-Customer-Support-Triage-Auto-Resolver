@@ -1,12 +1,10 @@
+%%writefile src/utils/llm.py
 """
 src/utils/llm.py
 
 Local LLM wrapper using Mistral-7B-Instruct (4-bit quantized) via
 HuggingFace transformers. Loads once (singleton) and reused across all
 agents (Responder, Priority, Escalation) that need LLM reasoning.
-
-Requires (add to requirements.txt if not present):
-    bitsandbytes==0.43.3
 """
 
 import os
@@ -17,7 +15,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 sys.path.append(os.getcwd())
 from src.utils.config import config
 
-_MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.2"
+_MODEL_NAME = config.LLM_MODEL_NAME
 
 _tokenizer = None
 _model = None
