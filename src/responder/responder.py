@@ -20,6 +20,7 @@ import json
 sys.path.append(os.getcwd())
 from src.utils.config import config
 from src.rag.build_kb import load_vector_store, retrieve
+from src.utils.llm import local_llm_call, extract_json
 
 
 RESPONDER_SYSTEM_PROMPT = """You are a customer support response assistant. \
@@ -54,28 +55,16 @@ def format_context(chunks: list) -> str:
 class ResponderAgent:
     def __init__(self, llm_call_fn=None):
         """
-        llm_call_fn: a function(system_prompt: str) -> str that calls your LLM
-        of choice (local model, Anthropic API, OpenAI API, etc.) and returns
-        the raw text response. Defaults to a simple local placeholder you
-        should replace with your actual model call.
+        llm_call_fn: a function(prompt: str) -> str that calls an LLM and
+        returns raw text. Defaults to the local Mistral-7B wrapper in
+        src/utils/llm.py. Pass a different function here if you swap models
+        later (e.g. an API-based call) without changing this class.
         """
         self.index, self.embedder, self.faq_entries = load_vector_store()
-        self.llm_call_fn = llm_call_fn or self._default_llm_call
-
-    def _default_llm_call(self, prompt: str) -> str:
-        """
-        Placeholder LLM call. Replace this with a real call to:
-          - a local Llama/Mistral model (via transformers/ollama), or
-          - the Anthropic/OpenAI API (LLM_PROVIDER in config.py)
-        Must return the model's raw text output.
-        """
-        raise NotImplementedError(
-            "Wire this up to your actual LLM (local model or API). "
-            "See config.LLM_PROVIDER / config.LLM_MODEL_NAME."
-        )
+        self.llm_call_fn = llm_call_fn or local_llm_call
 
     def respond(self, query: str, category: str = None) -> dict:
-        # Retrieve relevant KB chunks (optionally filter by category first)
+        # Retrieve relevant KB chunks
         chunks = retrieve(query, self.index, self.embedder, self.faq_entries)
 
         if not chunks:
@@ -96,13 +85,16 @@ class ResponderAgent:
         raw_output = self.llm_call_fn(prompt)
 
         try:
-            parsed = json.loads(raw_output)
+            parsed = json.loads(extract_json(raw_output))
         except (json.JSONDecodeError, TypeError):
-            # LLM didn't return clean JSON — treat as low confidence, escalate
+            # LLM didn't return clean/parseable JSON — treat as low
+            # confidence so the Escalation Agent hands this off to a human
+            # instead of silently failing.
             parsed = {
                 "answer": None,
                 "confidence": 0.0,
                 "reason": "unparseable LLM response",
+                "sources": [],
             }
 
         parsed["retrieved_chunks"] = chunks
@@ -111,9 +103,14 @@ class ResponderAgent:
 
 if __name__ == "__main__":
     agent = ResponderAgent()
-    print("Retrieval test (no LLM call, just showing retrieved context):\n")
-    chunks = retrieve(
-        "I was charged twice this month, what should I do?",
-        agent.index, agent.embedder, agent.faq_entries,
-    )
-    print(format_context(chunks))
+
+    test_query = "I was charged twice this month, what should I do?"
+    result = agent.respond(test_query, category="PAYMENT")
+
+    print(f"Query: {test_query}\n")
+    print(f"Answer: {result.get('answer')}")
+    print(f"Confidence: {result.get('confidence')}")
+    print(f"Sources: {result.get('sources')}")
+    print(f"\nRetrieved chunks used:")
+    for c in result.get("retrieved_chunks", []):
+        print(f"  [{c['score']:.3f}] {c['id']} - {c['title']}")
