@@ -154,5 +154,11 @@
     "category": "GENERAL_QUERY",
     "title": "Do you have a mobile app?",
     "content": "Yes, our app is available on both Android and iOS. It offers faster checkout, order tracking notifications, and exclusive app-only offers not available on the website."
+  },
+  {
+    "id": "DELIVERY_004",
+    "category": "DELIVERY",
+    "title": "How long does standard shipping take?",
+    "content": "Standard shipping typically takes 3-5 business days after the order is shipped. Delivery times may vary depending on your location, courier availability, and unexpected delays."
   }
 ]
