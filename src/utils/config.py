@@ -32,7 +32,7 @@ class Config:
 
     BITEXT_CSV_PATH: str = (
         "data/raw/bitext/"
-        "Bitext_Sample_Customer_Support_Training_Dataset_27K_responses-v11.csv"
+        "Bitext_augmented.csv"
     )
 
     # -----------------------------
