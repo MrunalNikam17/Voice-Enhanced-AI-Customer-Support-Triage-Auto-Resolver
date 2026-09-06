@@ -10,12 +10,16 @@ a clear summary.
 ```
 Voice/Text Input
    → [Whisper] Speech-to-Text (voice only)
-   → [Classifier Agent] fine-tuned text classifier → ticket category
-   → [Priority Agent] rule + LLM reasoning → urgency (low/medium/high)
-   → [Responder Agent] RAG over FAQ knowledge base → grounded draft answer
+   → [Classifier Agent] fine-tuned DistilBERT classifier → ticket category
+   → [Priority Agent] rule + Mistral-7B reasoning → urgency (low/medium/high)
+   → [Responder Agent] RAG over FAISS FAQ knowledge base → grounded draft answer
    → [Escalation Agent] decides: auto-resolve or hand off to human
+   → [gTTS] Text-to-Speech voice reply (for auto-resolved tickets)
    → [Dashboard] live trace + analytics
 ```
+
+Pipeline flow:
+**Voice/Text → Whisper → Classifier → Priority → RAG+Mistral Responder → Escalation → gTTS voice reply**
 
 Full architecture and agent prompts: see `docs/` (or the shared
 `AutoTriage_Architecture_and_Prompts.md`).
@@ -25,6 +29,20 @@ Full architecture and agent prompts: see `docs/` (or the shared
 > student-project timeline). Voice input still works via Whisper
 > transcription; urgency uses text-based cues instead. See the architecture
 > doc's stretch-goal section if you want to add it later.
+
+## How to run the dashboard
+
+```bash
+pip install -r requirements.txt
+streamlit run dashboard/app.py
+```
+
+## Results
+
+- **DistilBERT Classifier:** Achieves **~100% test accuracy** on the held-out test split.
+  - *Note on Benchmark:* Bitext's templated phrasing makes this an upper bound.
+  - *Data Augmentation Fix:* A duplicate-charge phrasing gap was found and fixed via data augmentation (20 additional examples added).
+- **End-to-End Pipeline:** Fully integrated voice-in to voice-out triage and resolution pipeline.
 
 ## Project Structure
 
@@ -78,7 +96,7 @@ cp .env.example .env             # then fill in values
    (`src/graph/workflow.py`).
 
 6. **Voice** — add Whisper transcription for voice-ticket input
-   (`src/voice/whisper_service.py`).
+   (`src/voice/whisper_service.py`) and gTTS voice replies (`src/voice/tts_service.py`).
 
 7. **Dashboard** — `streamlit run dashboard/app.py`.
 

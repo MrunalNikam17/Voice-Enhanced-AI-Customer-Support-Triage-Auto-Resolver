@@ -1,12 +1,13 @@
 # Core
 python-dotenv==1.0.1
-pandas==2.2.2
+pandas>=2.2.3
 numpy==1.26.4
 
 # LangChain / LangGraph
-langchain==0.2.16
-langchain-community==0.2.16
-langgraph==0.2.28
+langchain==0.3.7
+langchain-community==0.3.5
+langchain-core==0.3.15
+langgraph==0.2.45
 
 # RAG
 sentence-transformers==3.0.1
@@ -23,7 +24,7 @@ scikit-learn==1.5.1
 # Voice
 openai-whisper==20231117
 # faster-whisper==1.0.3        # alt to openai-whisper, uncomment if preferred
-TTS==0.22.0                    # Coqui TTS (optional, for spoken replies)
+gTTS==2.5.3
 
 # Dashboard
 streamlit==1.38.0

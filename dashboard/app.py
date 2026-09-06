@@ -1,10 +1,9 @@
-
 """
 dashboard/app.py
 
-Streamlit dashboard for AutoTriage. Lets you submit a ticket (typed or
-voice), watch it flow through Classifier -> Priority -> Responder ->
-Escalation, and see a running analytics summary.
+Streamlit dashboard for AutoTriage — full voice-to-voice loop:
+Voice/text in -> Whisper -> Classifier -> Priority -> RAG+Mistral Responder
+-> Escalation -> gTTS voice reply out.
 
 Run:
     streamlit run dashboard/app.py
@@ -21,6 +20,7 @@ import streamlit as st
 from src.utils.config import config
 from src.graph.workflow import run_ticket
 from src.voice.whisper_service import transcribe
+from src.voice.tts_service import synthesize_speech
 
 st.set_page_config(page_title=config.DASHBOARD_TITLE, layout="wide")
 
@@ -28,13 +28,10 @@ if "history" not in st.session_state:
     st.session_state.history = []
 
 st.title(config.DASHBOARD_TITLE)
-st.caption("Voice/text ticket triage: classify → prioritize → respond (RAG) → escalate")
+st.caption("🎤 Voice/Text → Whisper → Classifier → Priority → RAG+Mistral → Escalation → 🔊 Voice reply")
 
 tab_run, tab_analytics = st.tabs(["Run a ticket", "Analytics"])
 
-# -----------------------------
-# TAB 1: Run a ticket
-# -----------------------------
 with tab_run:
     input_mode = st.radio("Input type", ["Typed text", "Upload voice recording"], horizontal=True)
 
@@ -47,7 +44,7 @@ with tab_run:
             height=100,
         )
     else:
-        audio_file = st.file_uploader("Upload audio (mp3/wav)", type=["mp3", "wav", "m4a"])
+        audio_file = st.file_uploader("Upload audio (mp3/wav/m4a)", type=["mp3", "wav", "m4a"])
         if audio_file is not None:
             tmp_path = os.path.join("data/raw/audio", audio_file.name)
             os.makedirs("data/raw/audio", exist_ok=True)
@@ -78,15 +75,24 @@ with tab_run:
         st.divider()
 
         decision = result.get("decision")
+        answer_text = result.get("draft_answer")
+
         if decision == "auto_resolve":
             st.success("✅ Auto-resolved")
-            st.write(f"**Answer sent to customer:** {result.get('draft_answer')}")
+            st.write(f"**Answer sent to customer:** {answer_text}")
             st.caption(f"Sources: {', '.join(result.get('sources', [])) or 'none'}")
+
+            with st.spinner("Generating voice reply..."):
+                audio_path = synthesize_speech(answer_text)
+            if audio_path:
+                st.audio(audio_path)
+            else:
+                st.caption("(Voice reply unavailable — showing text only)")
         else:
             st.warning("🚩 Escalated to human agent")
             st.write(f"**Summary for human agent:** {result.get('escalation_summary')}")
-            if result.get("draft_answer"):
-                st.caption(f"(Draft answer for reference: {result.get('draft_answer')})")
+            if answer_text:
+                st.caption(f"(Draft answer for reference: {answer_text})")
 
         with st.expander("Retrieved knowledge base chunks"):
             for chunk in result.get("retrieved_chunks", []):
@@ -96,9 +102,6 @@ with tab_run:
         with st.expander("Full raw state (debug)"):
             st.json(result)
 
-# -----------------------------
-# TAB 2: Analytics
-# -----------------------------
 with tab_analytics:
     history = st.session_state.history
 
